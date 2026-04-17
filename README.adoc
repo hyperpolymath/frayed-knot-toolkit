@@ -1,0 +1,62 @@
+= Frayed Knot Toolkit (Frayed Knot Toolkit)
+:toc: macro
+:toc-title: Table of Contents
+:sectnums:
+:icons: font
+
+This directory contains the formalization of **Frayed Knot** theory using the dependently typed programming language and proof assistant **Agda**. It provides foundational definitions, topological states, and structural facts regarding knot crossings, resolutions, and strand choreographies. 
+
+This project provides a comprehensive toolkit for formalizing Frayed Knot Theory.
+
+toc::[]
+
+== Overview
+
+The project explores the mathematics and topology of "frayed" knots. It models knots mathematically by defining strands, orientations, crossing signs (Positive, Negative), and resolutions (A-Smooth, B-Smooth). The toolkit is designed to formally verify and prove structural properties about knot crossings and the choreographic interactions of their strands.
+
+== Project Structure
+
+The project primarily consists of Agda (`.agda`) files that construct the formal proofs and definitions, alongside an empty Julia (`.jl`) file intended for future numerical or programmatic implementation.
+
+=== Core Modules
+
+* `FrayedKnot.agda`
+  Defines the basic topological objects including:
+  ** `Resolution` (`A-Smooth`, `B-Smooth`)
+  ** `CrossingSign` (`Positive`, `Negative`)
+  ** `BranchKind` (`Split`, `Preserve`)
+  ** `TopologicalState` (Tracking component counts and resolution history)
+  ** Logic for resolving crossings and fraying nodes, including structural lemmas and successor-state proofs.
+
+* `ChoreographicFrayedKnot.agda`
+  Focuses on the choreographic aspects of strands. It defines `Strand` types, `Orientation` (`Over`, `Under`), `Distinct` proofs for strands, and projects knot paths, capturing navigation over and under crossings.
+
+* `FrayedKnotDiagram.agda` & `FrayedKnotLabeled.agda`
+  (Core internal modules) Define the structures for constructing diagrams from crossings and applying labels to track crossing signs and topological states across a full diagram.
+
+* `FrayedKnotExamples.agda`
+  Contains practical examples and theorems. For instance, it provides diagrams (`allPositive₂`, `mixed₂`), constructs explicit toy signatures/profiles, and formally proves distinction theorems (e.g., `profiles-differ`) which show that different crossing configurations yield mathematically distinct profiles.
+
+* `FrayedKnotUniformity.agda`
+  Explores uniformity properties and lemmas across the knot formalization.
+
+* `frayed_knot.jl`
+  A placeholder Julia script indicating planned support for numerical analysis, simulation, or algorithm execution related to frayed knots.
+
+== Getting Started
+
+To verify the proofs in this project, you need to have **Agda** installed along with the **Agda Standard Library**.
+
+1. **Install Agda:** Follow the instructions on the https://wiki.portal.chalmers.se/agda/pmwiki.php[Agda Wiki] or your package manager.
+2. **Type-check the project:** You can load the root files in your editor (e.g., using Emacs with `agda-mode`) to verify all proofs, or run:
+   ```bash
+   agda FrayedKnotExamples.agda
+   ```
+
+== Theory and Architecture
+
+The theoretical foundation builds on basic knot theory concepts (like the Kauffman bracket's A/B smoothings) and extends them to "frayed" interpretations. It tracks how local resolutions affect the global topological state (e.g., the number of components) and uses dependent types to statically guarantee structural facts—such as the binary nature of fraying and the impossibility of profile equalities between distinct knot configurations.
+
+== Status
+
+The Agda formalization is currently in active development with several foundational lemmas and main distinction theorems already proven. The Julia script represents planned numerical support, reflecting the hyperpolymath architectural preference for cross-language workflows (in this case, Agda for proofs and Julia for high-performance scientific computing).
